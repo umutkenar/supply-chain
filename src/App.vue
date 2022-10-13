@@ -1,26 +1,16 @@
 <template>
-  <img class="" alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <ScHeader></ScHeader>
+    <div class="w-full h-screen">
+      <RouterView></RouterView>
+    </div>
+    <ScFooter></ScFooter>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-};
+<script setup>
+import ScHeader from "./components/BaseComponents/ScHeader.vue";
+import ScFooter from "./components/BaseComponents/ScFooter.vue";
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
