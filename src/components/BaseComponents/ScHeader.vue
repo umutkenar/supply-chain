@@ -6,11 +6,12 @@
             <RouterLink to="/">Anasayfa</RouterLink>
             <div class="h-full w-[1px] bg-slate-300"></div>
             <RouterLink :to="{ name: 'AboutProject' }">Proje Hakkında</RouterLink>
+        </div>
+        <div class="w-full h-full max-w-max flex gap-3 items-center">
             <div class="h-full w-[1px] bg-slate-300"></div>
-            <RouterLink to="/">Veri Gir</RouterLink>
+            <RouterLink :to="{ name: 'CompanyRegister' }">Kayıt Ol</RouterLink>
             <div class="h-full w-[1px] bg-slate-300"></div>
-            <RouterLink to="/">Veri Sorgula</RouterLink>
-
+            <RouterLink to="/">Giriş</RouterLink>
         </div>
     </div>
   </div>
