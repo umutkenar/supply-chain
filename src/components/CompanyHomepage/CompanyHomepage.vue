@@ -9,9 +9,13 @@
       </div>
       <div class="w-full h-full max-w-max flex gap-3 items-center">
         <div class="h-full w-[1px] bg-slate-300"></div>
-        <RouterLink :to="{ name: 'CompanyRegister' }">Kayıt Ol</RouterLink>
+        <RouterLink to="/">Bildirim Yap</RouterLink>
         <div class="h-full w-[1px] bg-slate-300"></div>
-        <RouterLink :to="{ name: 'CompanyLogin' }">Giriş</RouterLink>
+        <RouterLink to="/">Bildirim Sorgula</RouterLink>
+        <div class="h-full w-[1px] bg-slate-300"></div>
+        <RouterLink to="/">Ayarlar</RouterLink>
+        <div class="h-full w-[1px] bg-slate-300"></div>
+        <RouterLink to="/">Çıkış</RouterLink>
       </div>
     </div>
   </div>

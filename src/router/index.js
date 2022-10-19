@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/components/HomePage/HomePage.vue";
 import AboutProjectVue from "@/components/AboutProject/AboutProject.vue";
 import CompanyRegisterVue from "@/components/CompanyRegister/CompanyRegister.vue";
+import CompanyLoginVue from "@/components/CompanyLogin/CompanyLogin.vue";
 const routes = [
   {
     path: "/",
@@ -17,6 +18,11 @@ const routes = [
     path: "/kayit-ol",
     name: "CompanyRegister",
     component: CompanyRegisterVue,
+  },
+  {
+    path: "/giris",
+    name: "CompanyLogin",
+    component: CompanyLoginVue,
   },
 ];
 

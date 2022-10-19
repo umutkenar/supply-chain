@@ -5,11 +5,11 @@
         <InputText id="inputtext" type="text" v-model="value1" />
         <label for="inputtext">InputText</label>
       </span>
-      {{value1}}
+      {{ value1 }}
     </div>
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import { ref } from "vue";
 const value1 = ref();
 </script>

@@ -1,19 +1,34 @@
 <template>
-  <div class="w-full h-screen flex justify-center items-center">
-    <div class="field">
-      <span>
-        <form>
-          <label for="firma_unvani">Firma Ünvanı: </label>
-          <input type="text" id="firma_unvani" v-model="value1" /><br />
-          <label for="firma_vergi_daire">Vergi Dairesi: </label>
-          <input type="text" id="firma_vergi_daire" v-model="value1" />
-        </form>
-      </span>
-      {{ value1 }}
+  <form id="register">
+    <div class="w-full h-screen flex justify-center items-center">
+      <div class="col-12 form group">
+        <label class="col-form-label col-form-label-lg"
+          >Firma Ünvanı <span class="text-danger">*</span></label
+        >
+        <input type="text" class="form-control form-control-lg" /><br /><br />
+        <label class="col-form-label col-form-label-lg"
+          >Firma Vergi Numarası <span class="text-danger">*</span></label
+        >
+        <input type="text" class="form-control form-control-lg" /><br /><br />
+        <label class="col-form-label col-form-label-lg"
+          >Firma Vergi Dairesi <span class="text-danger">*</span></label
+        >
+        <input type="text" class="form-control form-control-lg" /><br /><br />
+        <label class="col-form-label col-form-label-lg"
+          >Firma Adresi <span class="text-danger">*</span></label
+        >
+        <input type="text" class="form-control form-control-lg" /><br /><br />
+        <label class="col-form-label col-form-label-lg"
+          >Firma Telefon Numarası <span class="text-danger">*</span></label
+        >
+        <input type="text" class="form-control form-control-lg" /><br /><br />
+        <label class="col-form-label col-form-label-lg"
+          >Firma E-Mail Adresi <span class="text-danger">*</span></label
+        >
+        <input type="email" class="form-control form-control-lg" /><br /><br />
+
+        <button type="submit">Kayıt</button>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
-<script setup>
-import { ref } from "vue";
-const value1 = ref();
-</script>
