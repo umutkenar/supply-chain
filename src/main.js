@@ -12,11 +12,13 @@ import "primeicons/primeicons.css";
 
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
+import Card from 'primevue/card';
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
 
 app.component("Button", Button);
 app.component("InputText", InputText);
+app.component("Card", Card);
 
 app.mount("#app");
