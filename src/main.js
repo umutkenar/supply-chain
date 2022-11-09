@@ -13,6 +13,8 @@ import "primeicons/primeicons.css";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Card from 'primevue/card';
+import Timeline from 'primevue/timeline';
+
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
@@ -20,5 +22,6 @@ app.use(router);
 app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("Card", Card);
+app.component("Timeline", Timeline);
 
 app.mount("#app");

@@ -19,7 +19,7 @@
         <div class="w-full flex justify-center items-center gap-2">
           <ScButtonVue v-if="!isLogged" button-link="AddProduct" button-text="Veri Gir" primary></ScButtonVue>
           <ScButtonVue v-else button-link="AddProduct" button-text="Giriş Yap" primary></ScButtonVue>
-          <ScButtonVue button-link="AddProduct" button-text="Veri Sorgula" primary></ScButtonVue>
+          <ScButtonVue button-link="GetProduct" button-text="Veri Sorgula" primary></ScButtonVue>
         </div>
       </template>
     </Card>
@@ -29,7 +29,7 @@
 import { onMounted, ref, watch } from "vue";
 import ScButtonVue from "../BaseComponents/ScButton.vue";
 
-const isLogged = ref(localStorage.getItem("isLoggedIn"));
+const isLogged = ref(true);
 onMounted(() => {
   // let temp = localStorage.getItem("isLoggedIn");
   // console.log("sadasdasdas");
