@@ -1,7 +1,7 @@
 <template>
   <div>
     <ScHeader></ScHeader>
-    <div class="w-full p-9 bg-[#eff3f7]">
+    <div class="w-full p-9 bg-[#eff3f7] h-screen">
       <RouterView></RouterView>
     </div>
     <ScFooter></ScFooter>

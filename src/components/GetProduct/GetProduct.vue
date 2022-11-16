@@ -1,6 +1,7 @@
 <template>
-  <h1>Search with product ID</h1>
-  <div class="flex flex-col gap-12 h-screen">
+  <div class="bg-white border-gray-500 rounded-xl py-12 px-6 border max-w-[1200px] m-auto flex flex-col gap-2">
+    <p class="text-lg">Blokzincir tedarik takip uygulamasının öncelikli amacı şeffaf üretim ağının takibidir. Bu hizmeti sağlayabilmek için ürün seri numaralarıyla burada yaptığınız aramada size blokzincirden gelen veriler sergilenmektedir.</p>
+    <p class="text-lg font-semibold">Ürün seri numarası girerek arama yapabilirsiniz</p>
     <div class="flex gap-4">
       <InputText id="inputtext" type="text" v-model="idSearch" />
       <Button @click="getData(idSearch)">Search</Button>
@@ -21,7 +22,7 @@
           </template>
           <template #content>
             <p>
-              {{slotProps.item.content}}
+              {{ slotProps.item.content }}
             </p>
             <!-- <Button label="Read more" class="p-button-text"></Button> -->
           </template>
@@ -32,51 +33,20 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const products = ref([
-  {
-    id: "SC0001",
-    data: [
-      {
-        status: "SC0001.KASA",
-        date: "15/10/2020 10:30",
-        color: "#9C27B0",
-        content: "KASA TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR"
-      },
-      { status: "SC0001.KUNDAK", date: "15/10/2020 14:00", color: "#673AB7",content: "KUNDAK TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-      { status: "SC0001.NAMLU", date: "15/10/2020 16:15", color: "#FF9800",content: "NAMLU TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-      { status: "SC0001.TETİK", date: "16/10/2020 10:00", color: "#607D8B",content: "TETİK TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-    ],
-  },
-  {
-    id: "SC0002",
-    data: [
-      {
-        status: "SC0002.KASA",
-        date: "15/10/2020 10:30",
-        color: "#9C27B0",
-        content: "KASA TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR"
-      },
-      { status: "SC0002.KUNDAK", date: "15/10/2020 14:00", color: "#673AB7",content: "KUNDAK TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-      { status: "SC0002.NAMLU", date: "15/10/2020 16:15", color: "#FF9800",content: "NAMLU TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-      { status: "SC0002.TETİK", date: "16/10/2020 10:00", color: "#607D8B",content: "TETİK TEMİNİ XYZ TARAFINDAN YAPILMIŞTIR" },
-    ],
-  },
-]);
+import products from "@/assets/json/products";
 const searchedId = ref(false);
 const idSearch = ref();
 const foundedId = ref();
 function getData(id) {
-  for (let index = 0; index < products.value.length; index++) {
-    const element = products.value[index];
+  for (let index = 0; index < products.length; index++) {
+    const element = products[index];
     if (element.id == id) {
       searchedId.value = true;
       foundedId.value = element.data;
-      console.log("founded");
       break;
     } else {
       searchedId.value = false;
       foundedId.value = null;
-      console.log('not fonunded')
     }
   }
 }

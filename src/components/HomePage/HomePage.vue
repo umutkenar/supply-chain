@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-screen flex justify-center items-center">
     <Card style="width: 25em">
-      <template #title> Merhaba <span v-if="!isLogged">KENAR Silah San. ve Tic. AŞ</span></template>
+      <template #title> Merhaba <span v-if="isLogged !== 'false'">KENAR Silah San. ve Tic. AŞ</span></template>
       <template #content>
         <div class="flex flex-col gap-2">
           <span>
@@ -17,7 +17,12 @@
       </template>
       <template #footer>
         <div class="w-full flex justify-center items-center gap-2">
-          <ScButtonVue v-if="!isLogged" button-link="AddProduct" button-text="Veri Gir" primary></ScButtonVue>
+          <ScButtonVue
+            v-if="isLogged !== 'false'"
+            button-link="AddProduct"
+            button-text="Veri Gir"
+            primary
+          ></ScButtonVue>
           <ScButtonVue v-else button-link="AddProduct" button-text="Giriş Yap" primary></ScButtonVue>
           <ScButtonVue button-link="GetProduct" button-text="Veri Sorgula" primary></ScButtonVue>
         </div>
@@ -26,20 +31,16 @@
   </div>
 </template>
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { computed } from "vue";
 import ScButtonVue from "../BaseComponents/ScButton.vue";
 
-const isLogged = ref(true);
-onMounted(() => {
-  // let temp = localStorage.getItem("isLoggedIn");
-  // console.log("sadasdasdas");
-  // if (temp === "true") isLogged.value = true;
-  // else isLogged.value = false;
-});
-watch(localStorage.getItem("isLoggedIn"), async (newQuestion) => {
-  console.log("asdasdasdasdadas", newQuestion);
-  if (newQuestion === "true") isLogged.value = true;
-  else isLogged.value = false;
+const isLogged = computed({
+  get() {
+    return localStorage.getItem("isLogged");
+  },
+  set(newValue) {
+    localStorage.setItem("isLogged", newValue);
+  },
 });
 </script>
 <style></style>

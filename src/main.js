@@ -14,6 +14,9 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Card from 'primevue/card';
 import Timeline from 'primevue/timeline';
+import Dropdown from 'primevue/dropdown';
+import InputNumber from 'primevue/inputnumber';
+import InputMask from 'primevue/inputmask';
 
 const app = createApp(App);
 app.use(PrimeVue);
@@ -23,5 +26,8 @@ app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("Card", Card);
 app.component("Timeline", Timeline);
+app.component("Dropdown", Dropdown);
+app.component("InputNumber", InputNumber);
+app.component("InputMask", InputMask);
 
 app.mount("#app");

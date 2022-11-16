@@ -3,14 +3,21 @@
     <div class="w-full h-full px-8 py-4 flex flex-col gap-4 justify-center items-center text-white">
       <div class="w-full flex justify-between items-center">
         <h1 class="text-xl">Supply Chain App</h1>
-        <div class="w-full h-full max-w-max flex gap-3 items-center">
+        <div v-if="isLogged !== 'false'" class="w-full h-full max-w-max flex gap-3 items-center text-white">
           <RouterLink to="/">Anasayfa</RouterLink>
           <div class="h-full w-[1px] bg-white"></div>
           <RouterLink :to="{ name: 'AboutProject' }">Proje Hakkında</RouterLink>
           <div class="h-full w-[1px] bg-white"></div>
-          <RouterLink to="/">Veri Gir</RouterLink>
+          <RouterLink :to="{ name: 'AddProduct' }">Veri Gir</RouterLink>
           <div class="h-full w-[1px] bg-white"></div>
-          <RouterLink to="/">Veri Sorgula</RouterLink>
+          <RouterLink :to="{ name: 'GetProduct' }">Veri Sorgula</RouterLink>
+        </div>
+        <div v-else class="w-full h-full max-w-max flex gap-3 items-center text-white">
+          <RouterLink to="/">Anasayfa</RouterLink>
+          <div class="h-full w-[1px] bg-white"></div>
+          <RouterLink :to="{ name: 'AboutProject' }">Proje Hakkında</RouterLink>
+          <div class="h-full w-[1px] bg-white"></div>
+          <RouterLink :to="{ name: 'GetProduct' }">Veri Sorgula</RouterLink>
         </div>
       </div>
       <div>
@@ -19,3 +26,17 @@
     </div>
   </div>
 </template>
+<script setup>
+
+import { computed } from "vue";
+
+const isLogged = computed({
+  get() {
+    return localStorage.getItem("isLogged");
+  },
+  set(newValue) {
+    localStorage.setItem("isLogged", newValue);
+  },
+});
+
+</script>
