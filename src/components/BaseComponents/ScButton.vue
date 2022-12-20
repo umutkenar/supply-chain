@@ -1,6 +1,6 @@
 <template>
-  <RouterLink :to="{ name: buttonLink }" :class="buttonClass"
-    >{{buttonText}}</RouterLink
+  <button :class="buttonClass"
+    >{{buttonText}}</button
   >
 </template>
 <script setup>
@@ -10,11 +10,6 @@ const props = defineProps({
   buttonText: {
     type: String,
     required: true,
-  },
-  buttonLink: {
-    type: String,
-    default:'HomePage',
-    required: false,
   },
   primary:{
     type:Boolean,

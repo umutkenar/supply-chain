@@ -1,7 +1,12 @@
 <template>
   <div class="w-full h-screen flex justify-center items-center">
-    <Card style="width: 25em">
-      <template #title> Merhaba <span v-if="isLogged !== 'false'">KENAR Silah San. ve Tic. AŞ</span></template>
+    <Card style="max-width: min-content;min-width: 25em;">
+      <template #title>
+        <div v-if="walletAddress !== ''">
+          Şu an <span>{{ walletAddress }}</span> cüzdanı için işlem yapmaktasınız!
+        </div>
+        <div v-else>Merhaba</div>
+      </template>
       <template #content>
         <div class="flex flex-col gap-2">
           <span>
@@ -18,7 +23,7 @@
       <template #footer>
         <div class="w-full flex justify-center items-center gap-2">
           <ScButtonVue
-            v-if="isLogged !== 'false'"
+            v-if="walletAddress !== ''"
             button-link="AddProduct"
             button-text="Veri Gir"
             primary
@@ -31,16 +36,11 @@
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
+import { defineProps } from "vue";
 import ScButtonVue from "../BaseComponents/ScButton.vue";
 
-const isLogged = computed({
-  get() {
-    return localStorage.getItem("isLogged");
-  },
-  set(newValue) {
-    localStorage.setItem("isLogged", newValue);
-  },
+defineProps({
+  walletAddress: String,
 });
 </script>
 <style></style>

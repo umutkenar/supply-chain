@@ -5,7 +5,7 @@
         <h1 class="text-xl text-white">Supply Chain App</h1>
       </div>
       <div class="flex items-center gap-6 h-2/3">
-        <div v-if="isLogged !== 'false'" class="w-full h-full max-w-max flex gap-3 items-center text-white">
+        <div v-if="walletAddress !== ''" class="w-full h-full max-w-max flex gap-3 items-center text-white">
           <RouterLink to="/">Anasayfa</RouterLink>
           <div class="h-full w-[1px] bg-white"></div>
           <RouterLink :to="{ name: 'AboutProject' }">Proje Hakkında</RouterLink>
@@ -22,32 +22,60 @@
           <RouterLink :to="{ name: 'GetProduct' }">Veri Sorgula</RouterLink>
         </div>
         <div>
-          <ScButtonVue v-if="isLogged === 'false'" button-text="Login" tertiary @click="logIn"></ScButtonVue>
-          <ScButtonVue v-else button-text="Logout" tertiary @click="logOut"></ScButtonVue>
+          <ScButtonVue
+            :button-text="walletAddress !== '' ? walletAddress : 'Login'"
+            tertiary
+            @click="logIn"
+          ></ScButtonVue>
+          <!-- <ScButtonVue v-else :button-text="'metamaskAdrs'" tertiary></ScButtonVue> -->
         </div>
+        <vue-metamask ref="metamask" :initConnect="false" @onComplete="onComplete"></vue-metamask>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
+import { onMounted, ref, watch, defineEmits } from "vue";
 import ScButtonVue from "./ScButton.vue";
+import VueMetamask from "vue-metamask";
+import router from "@/router";
+import { useRoute } from "vue-router";
 
-const isLogged = computed({
-  get() {
-    return localStorage.getItem("isLogged");
-  },
-  set(newValue) {
-    localStorage.setItem("isLogged", newValue);
-  },
+const route = useRoute();
+const emit = defineEmits(["loggedIn"]);
+const metamask = ref();
+const metamaskWallet = ref();
+const walletAddress = ref("");
+const isLogged = ref(false);
+
+onMounted(() => {
+  if (localStorage.getItem("metaMaskWalletAddress") !== "") {
+    metamask.value.init();
+    isLogged.value = true;
+    walletAddress.value = localStorage.getItem("metaMaskWalletAddress");
+  }
 });
 
+function onComplete(data) {
+  console.log(data);
+  metamaskWallet.value = data;
+  walletAddress.value = data.metaMaskAddress;
+  emit("loggedIn", walletAddress.value);
+  if (route.path.includes("product-add")) {
+    router.push("/");
+  }
+  localStorage.setItem("metaMaskWalletAddress", data.metaMaskAddress);
+}
 function logIn() {
-  isLogged.value = true;
-  location.reload();
+  metamask.value.init();
 }
-function logOut() {
-  isLogged.value = false;
-  location.reload();
-}
+
+watch(
+  () => metamaskWallet.value,
+  () => {
+    if (metamaskWallet.value.metaMaskAddress === "") {
+      localStorage.setItem("metaMaskWalletAddress", metamaskWallet.value.metaMaskAddress);
+    }
+  },
+);
 </script>

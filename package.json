@@ -12,6 +12,7 @@
     "primeicons": "^5.0.0",
     "primevue": "^3.17.0",
     "vue": "^3.2.13",
+    "vue-metamask": "^2.2.1",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {

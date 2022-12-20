@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white border-gray-500 rounded-xl py-12 px-6 border max-w-[1200px] m-auto flex flex-col gap-2">
-    <p class="text-lg">Merhaba KENAR Silah San. ve Tic. AŞ, bu ekrandan verilerini girebilirsin</p>
+    <p class="text-lg">{{walletAddress}} cüzdanı için veri girişi yapıyorsunuz.</p>
     <p class="text-lg font-semibold"></p>
     <div class="flex gap-4 flex-col max-w-sm">
       <InputText id="inputtext" type="text" v-model="productID" placeholder="Ürün Seri Numarası" />
@@ -39,9 +39,13 @@
   </div>
 </template>
 <script setup>
+import { defineProps } from "vue";
 import { ref } from "vue";
 import partsList from "@/assets/json/shotgunParts";
 
+defineProps({
+  walletAddress: String,
+});
 const selectedPart = ref();
 // const partCount = ref(1);
 const productID = ref();
