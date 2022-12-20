@@ -8,8 +8,9 @@
         v-model="selectedPart"
         :options="parts"
         optionLabel="name"
+        scrollHeight="250px"
         :filter="true"
-        placeholder="Parça seç"
+        placeholder="Select a part"
         :showClear="true"
       >
         <template #value="slotProps">
@@ -32,13 +33,13 @@
       <InputMask id="date" mask="99/99/9999" v-model="supplyDate" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
       <InputText id="inputtext" type="text" v-model="desc" placeholder="Açıklama" />
       <div class="max-w-fit">
-        <Button @click="addData()">Veri Gir</Button>
+        <Button @click="addData(selectedPart.id)">Veri Gir</Button>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref,computed } from "vue";
+import { ref } from "vue";
 import partsList from "@/assets/json/shotgunParts";
 
 const selectedPart = ref();
@@ -47,17 +48,10 @@ const productID = ref();
 const desc = ref();
 const supplyDate = ref();
 const parts = ref(partsList);
-const getProduct = computed({
-  get() {
-    return JSON.parse(localStorage.getItem("products"));
-  },
-  set(newValue) {
-    localStorage.setItem("products", JSON.stringify(newValue));
-  },
-});
 function addData() {
-  if (getProduct.value === null) {
-    getProduct.value = [];
+  let getProduct = JSON.parse(localStorage.getItem("products"));
+  if (getProduct === null) {
+    getProduct = [];
     let tempProduct = {
       id: productID.value,
       part: [
@@ -68,12 +62,13 @@ function addData() {
         },
       ],
     };
-    getProduct.value.push(tempProduct);
-    
+    getProduct.push(tempProduct);
+    localStorage.setItem("products", JSON.stringify(getProduct));
   } else {
-    for (let index = 0; index < getProduct.value.length; index++) {
-      const element = getProduct.value[index];
+    for (let index = 0; index < getProduct.length; index++) {
+      const element = getProduct[index];
       if (element.id == productID.value) {
+        localStorage.setItem("products", null);
         let productPart = {
           partName: selectedPart.value.name,
           partDesc: desc.value,
@@ -82,7 +77,8 @@ function addData() {
         getProduct[index].part.push(productPart);
         localStorage.setItem("products", JSON.stringify(getProduct));
         break;
-      } else if (element.id !== productID.value && index == getProduct.value.length - 1) {
+      } else if (element.id !== productID.value && index == getProduct.length - 1) {
+        localStorage.setItem("products", null);
         let tempProduct = {
           id: productID.value,
           part: [
@@ -93,8 +89,9 @@ function addData() {
             },
           ],
         };
-        getProduct.value.push(tempProduct);
-        localStorage.setItem("products", JSON.stringify(getProduct.value));
+        getProduct.push(tempProduct);
+        localStorage.setItem("products", JSON.stringify(getProduct));
+        break;
       }
     }
   }
