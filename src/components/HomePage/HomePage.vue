@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen flex justify-center items-center">
+  <div class="w-full h-full flex justify-center items-center">
     <Card style="max-width: min-content;min-width: 25em;">
       <template #title>
         <div v-if="walletAddress !== ''">

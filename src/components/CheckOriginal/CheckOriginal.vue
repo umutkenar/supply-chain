@@ -4,8 +4,6 @@
       Blokzincir tedarik takip uygulamasının öncelikli amacı şeffaf üretim ağının takibidir. Bu hizmeti sağlayabilmek
       için ürün seri numaralarıyla burada yaptığınız aramada size blokzincirden gelen veriler sergilenmektedir.
     </p>
-    <p>Örnek parça sorgu için: d83c09ac-56ff-4caf-9f14-b82fe7d91c95</p>
-    <p>Örnek ürün sorgu için: c6c02bdd-3c5e-4893-bbdd-8aaeffe82526</p>
     <p class="text-lg font-semibold">Ürün seri numarası girerek arama yapabilirsiniz</p>
     <div class="w-full flex flex-col gap-7">
       <div class="flex gap-4 w-full">
@@ -38,18 +36,6 @@ import { ref } from "vue";
 const idSearch = ref();
 const transactionList = ref([]);
 const productObj = ref(null);
-const getProductParts = (data, product) => {
-  productObj.value = product;
-  for (let index = 0; index < data.length; index++) {
-    const element = data[index];
-    for (let index = 0; index < product.parts.length; index++) {
-      const part = product.parts[index];
-      if (element.id === part.id) {
-        transactionList.value.push(element);
-      }
-    }
-  }
-};
 
 const getData = () => {
   transactionList.value = [];
@@ -60,13 +46,6 @@ const getData = () => {
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       console.log(element);
-      if (element.id === idSearch.value && element.type === "part") {
-        transactionList.value.push(element);
-        break;
-      } else if (element.id === idSearch.value && element.type === "product") {
-        getProductParts(data, element);
-        break;
-      }
     }
   }
 };

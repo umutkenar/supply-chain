@@ -3,6 +3,8 @@ import HomePage from "@/components/HomePage/HomePage.vue";
 import AboutProjectVue from "@/components/AboutProject/AboutProject.vue";
 import AddProduct from "@/components/AddProduct/AddProduct.vue";
 import GetProduct from "@/components/GetProduct/GetProduct.vue";
+import CheckOriginal from "@/components/CheckOriginal/CheckOriginal.vue";
+
 const routes = [
   {
     path: "/",
@@ -23,6 +25,11 @@ const routes = [
     path: "/product-get",
     name: "GetProduct",
     component: GetProduct,
+  },
+  {
+    path: "/check-original",
+    name: "CheckOriginal",
+    component: CheckOriginal,
   },
 ];
 
