@@ -22,12 +22,13 @@
           <RouterLink :to="{ name: 'GetProduct' }">Veri Sorgula</RouterLink>
         </div>
         <div>
+          <ScButtonVue v-if="!walletAddress" :button-text="'Login'" tertiary @click="logIn"></ScButtonVue>
           <ScButtonVue
-            :button-text="walletAddress !== '' ? walletAddress : 'Login'"
+            v-else
+            :button-text="walletAddress"
             tertiary
-            @click="logIn"
+            @click="$router.push({ name: 'ProfileView' })"
           ></ScButtonVue>
-          <!-- <ScButtonVue v-else :button-text="'metamaskAdrs'" tertiary></ScButtonVue> -->
         </div>
         <vue-metamask ref="metamask" :initConnect="false" @onComplete="onComplete"></vue-metamask>
       </div>

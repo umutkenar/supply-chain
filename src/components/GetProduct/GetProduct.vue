@@ -14,13 +14,14 @@
       </div>
       <div v-if="productObj" class="flex flex-col gap-2">
         <p class="text-lg font-bold">Seri Numarası: {{ productObj.serialNo }}</p>
-        <p class="text-base font-semibold">Alıcının cüzdan adresi: {{ productObj.customerWalletAddress }}</p>
+        <p class="text-base font-semibold">Göndericinin cüzdan adresi: {{ productObj.senderWalletAdress }}</p>
+        <p class="text-base font-semibold">Alıcının cüzdan adresi: {{ productObj.receiverWalletAdress }}</p>
       </div>
       <Timeline :value="transactionList" align="alternate" class="customized-timeline">
         <template #content="slotProps">
           <Card>
             <template #title> Parça Adı: {{ slotProps.item.partName }} </template>
-            <template #subtitle> Gönderenin Cüzdanı: {{ slotProps.item.customerWalletAddress }} </template>
+            <template #subtitle> Gönderenin Cüzdanı: {{ slotProps.item.senderWalletAdress }} </template>
             <template #content>
               <div class="flex flex-col gap-2">
                 <p>Temin Adedi: {{ slotProps.item.supplyAmount }}</p>

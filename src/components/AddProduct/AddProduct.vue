@@ -130,10 +130,10 @@
               class="w-full"
             />
           </div>
-          <div class="flex flex-col gap-2 w-1/2">
+          <!-- <div class="flex flex-col gap-2 w-1/2">
             <span class="text-sm text-GREY_TEXT">Tedarik Adedi</span>
             <InputText id="inputtext" type="number" v-model="product.supplyAmount" placeholder="Adet" class="w-full" />
-          </div>
+          </div> -->
         </div>
       </div>
       <div v-if="dataType.type === 4" class="flex flex-col w-full gap-4">
@@ -275,6 +275,10 @@ const clearAllData = () => {
   };
 };
 
+const getSenderWalletAdress = () =>{
+  return localStorage.getItem("metaMaskWalletAddress");
+}
+
 const addProduct = () => {
   let getProduct = JSON.parse(localStorage.getItem("data"));
   if (getProduct === null) {
@@ -282,7 +286,8 @@ const addProduct = () => {
   }
   localStorage.setItem("data", null);
   let tempProduct = {
-    customerWalletAddress: customerWalletAddress.value,
+    receiverWalletAdress: customerWalletAddress.value,
+    senderWalletAdress: getSenderWalletAdress(),
     id: uniqueId.value,
     type: "product",
     serialNo: product.value.serialNo,
@@ -313,7 +318,8 @@ const addPart = () => {
   }
   localStorage.setItem("data", null);
   let tempPart = {
-    customerWalletAddress: customerWalletAddress.value,
+    receiverWalletAdress: customerWalletAddress.value,
+    senderWalletAdress: getSenderWalletAdress(),
     id: uniqueId.value,
     type: "part",
     partName: partData.value.part.name,

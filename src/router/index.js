@@ -4,6 +4,7 @@ import AboutProjectVue from "@/components/AboutProject/AboutProject.vue";
 import AddProduct from "@/components/AddProduct/AddProduct.vue";
 import GetProduct from "@/components/GetProduct/GetProduct.vue";
 import CheckOriginal from "@/components/CheckOriginal/CheckOriginal.vue";
+import ProfileView from "@/components/ProfileView/ProfileView.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/check-original",
     name: "CheckOriginal",
     component: CheckOriginal,
+  },
+  {
+    path: "/profile-view",
+    name: "ProfileView",
+    component: ProfileView,
   },
 ];
 
