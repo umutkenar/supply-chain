@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white border-gray-500 rounded-xl py-12 px-6 border max-w-[1200px] m-auto flex flex-col gap-6">
-    <h1 class="text-2xl font-bold text-black">Profile Detayı</h1>
+    <h1 class="text-2xl font-bold text-black">Profil Detayı</h1>
     <div class="flex flex-col gap-4 w-full">
       <h1 class="text-xl underline font-semibold">Gönderilen İşlemler</h1>
       <div class="flex flex-col border rounded-md divide-y">
