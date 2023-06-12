@@ -49,10 +49,8 @@ const getData = () => {
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
       if (element.senderWalletAdress === loggedWalletAdress) {
-        console.log("deneememememem11111");
         sendedTransactions.value.push(element);
       } else if (element.receiverWalletAdress === loggedWalletAdress) {
-        console.log("deneememememem22222");
         gettedTransactions.value.push(element);
       }
     }
