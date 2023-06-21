@@ -14,14 +14,56 @@
       </div>
       <div v-if="productObj" class="flex flex-col gap-2">
         <p class="text-lg font-bold">Seri Numarası: {{ productObj.serialNo }}</p>
-        <p class="text-base font-semibold">Göndericinin cüzdan adresi: {{ productObj.senderWalletAdress }}</p>
-        <p class="text-base font-semibold">Alıcının cüzdan adresi: {{ productObj.receiverWalletAdress }}</p>
+        <p class="text-base font-semibold">Göndericinin cüzdan adresi: {{ productObj.senderWalletAddress }}</p>
+        <p class="text-base font-semibold">Alıcının cüzdan adresi: {{ productObj.receiver.walletAddress }}</p>
       </div>
-      <Timeline :value="transactionList" align="alternate" class="customized-timeline">
+      <div v-if="transportObj" class="flex flex-col gap-2">
+        <p class="text-lg font-bold">İrsaliye Numarası: {{ transportObj.waybillNumber }}</p>
+        <p class="text-base font-semibold">Alıcının cüzdan adresi: {{ transportObj.receiver.walletAddress }}</p>
+      </div>
+      <Timeline v-if="transportObj" :value="transportDetailList" align="alternate" class="customized-timeline">
+        <template #content="slotProps">
+          <Card>
+            <template #title>
+              <div>{{ slotProps.item.transportFrom }} - {{ slotProps.item.transportTo }}</div>
+            </template>
+            <template #content>
+              <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-2">
+                  <span class="text-sm text-GREY_TEXT font-extrabold">Birime Geliş Bilgileri</span>
+                  <p>Geliş Tarihi: {{ slotProps.item.arrivalDate }}</p>
+                  <p>Paket Durumu: {{ slotProps.item.productHealthBefore }}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <span class="text-sm text-GREY_TEXT font-extrabold">Birimden Çıkış Bilgileri</span>
+                  <p>Çıkış Tarihi: {{ slotProps.item.departureDate }}</p>
+                  <p>Paket Durumu: {{ slotProps.item.productHealthAfter }}</p>
+                </div>
+                <p>Ek Açıklama: {{ slotProps.item.additionalDesc }}</p>
+              </div>
+            </template>
+          </Card>
+        </template>
+      </Timeline>
+      <Timeline v-else-if="orgProductObj" :value="orgProductsList" align="alternate" class="customized-timeline">
+        <template #content="slotProps">
+          <Card>
+            <template #title>
+              <div>{{ slotProps.item.viewCount > 0 ? "Ürün orijinal değil" : "Ürün orijinal" }}</div>
+            </template>
+            <template #content>
+              <div class="flex flex-col gap-3 text-lg text-GREY_TEXT font-bold">
+                Bu ürünün sorgulanma sayısı: {{ slotProps.item.viewCount }}
+              </div>
+            </template>
+          </Card>
+        </template>
+      </Timeline>
+      <Timeline v-else :value="transactionList" align="alternate" class="customized-timeline">
         <template #content="slotProps">
           <Card>
             <template #title> Parça Adı: {{ slotProps.item.partName }} </template>
-            <template #subtitle> Gönderenin Cüzdanı: {{ slotProps.item.senderWalletAdress }} </template>
+            <template #subtitle> Gönderenin Cüzdanı: {{ slotProps.item.senderWalletAddress }} </template>
             <template #content>
               <div class="flex flex-col gap-2">
                 <p>Temin Adedi: {{ slotProps.item.supplyAmount }}</p>
@@ -39,6 +81,11 @@ import { ref } from "vue";
 const idSearch = ref();
 const transactionList = ref([]);
 const productObj = ref(null);
+const transportObj = ref(null);
+const transportDetailList = ref([]);
+const orgProductObj = ref(null);
+const orgProductsList = ref([]);
+
 const getProductParts = (data, product) => {
   productObj.value = product;
   for (let index = 0; index < data.length; index++) {
@@ -52,8 +99,33 @@ const getProductParts = (data, product) => {
   }
 };
 
+const getTransportDetails = (transport) => {
+  console.log(transport);
+  transportObj.value = transport;
+  for (let index = 0; index < transport.transportDetailList.length; index++) {
+    transportDetailList.value.push(transport.transportDetailList[index]);
+  }
+};
+
+const countOriginalProduct = (data) => {
+  orgProductObj.value = data;
+  orgProductsList.value.push(data);
+  let getProduct = JSON.parse(localStorage.getItem("data"));
+  if (getProduct === null) {
+    getProduct = [];
+  }
+  localStorage.setItem("data", null);
+  const index = getProduct.findIndex((a) => a.serialNo === data.serialNo);
+  if (index >= 0) {
+    getProduct[index].viewCount++;
+  }
+  localStorage.setItem("data", JSON.stringify(getProduct));
+};
+
 const getData = () => {
   transactionList.value = [];
+  transportDetailList.value = [];
+  orgProductsList.value = [];
   let data = JSON.parse(localStorage.getItem("data"));
   if (data === null) {
     transactionList.value = "Veri Yok";
@@ -66,6 +138,12 @@ const getData = () => {
         break;
       } else if (element.id === idSearch.value && element.type === "product") {
         getProductParts(data, element);
+        break;
+      } else if (element.waybillNumber === idSearch.value && element.type === "transport") {
+        getTransportDetails(element);
+        break;
+      } else if (element.serialNo === idSearch.value && element.type === "orgProduct") {
+        countOriginalProduct(element);
         break;
       }
     }

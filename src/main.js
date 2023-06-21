@@ -17,6 +17,8 @@ import Timeline from 'primevue/timeline';
 import Dropdown from 'primevue/dropdown';
 import InputNumber from 'primevue/inputnumber';
 import InputMask from 'primevue/inputmask';
+import Dialog from 'primevue/dialog';
+import InputSwitch from 'primevue/inputswitch';
 
 const app = createApp(App);
 app.use(PrimeVue);
@@ -29,5 +31,7 @@ app.component("Timeline", Timeline);
 app.component("Dropdown", Dropdown);
 app.component("InputNumber", InputNumber);
 app.component("InputMask", InputMask);
+app.component("Dialog", Dialog);
+app.component("InputSwitch", InputSwitch);
 
 app.mount("#app");
